@@ -1,0 +1,7 @@
+missing sec
+- Constant‑time arithmetic primitives
+- secret‑dependent branches
+- Fixed‑time exponentiation
+- Branchless halving/adjustment
+
+-rename repository to modular_inversion_gcd_algo_study
