@@ -614,10 +614,38 @@ mod tests_of_units {
         }
 
         #[test]
-        fn non_invertible() {
+        fn non_invertible_a() {
             let modulus = 33;
             let unit = 11;
             let f = [A, B, C, C2, D, D2];
+
+            for f in f {
+                println!("function|{}", f.0);
+                let res = f.1(modulus, unit);
+                assert_eq!(Ok(None), res);
+            }
+        }
+
+        #[test]
+        fn non_invertible_b() {
+            let modulus = 3_150_055_839; // 150002659ᵖ ⋅7ᵖ ⋅3ᵖ
+            let unit = 76_604_397; // 1502047ᵖ ⋅17ᵖ ⋅3ᵖ
+
+            let f = [A, C, C2, D, D2];
+
+            for f in f {
+                println!("function|{}", f.0);
+                let res = f.1(modulus, unit);
+                assert_eq!(Ok(None), res);
+            }
+        }
+
+        #[test]
+        fn non_invertible_c() {
+            let modulus = 55_286_231; // 5021ᵖ ⋅77ᶜ ⋅11ᵖ ⋅13ᵖ
+            let unit = 7_704_620; // 5003ᵖ ⋅10ᶜ ⋅154ᶜ
+
+            let f = [A, C, C2, D, D2];
 
             for f in f {
                 println!("function|{}", f.0);
