@@ -4,3 +4,7 @@ version = "1.0.0"
 edition = "2024"
 license = "MIT"
 authors = [ "software9119.technology" ]
+
+[features]
+extended-tests = []
+

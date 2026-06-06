@@ -5,3 +5,7 @@ missing sec
 - Branchless halving/adjustment
 
 -rename repository to modular_inversion_gcd_algo_study
+  
+- readme
+  -add stats
+  -reference Pornin's proposal
