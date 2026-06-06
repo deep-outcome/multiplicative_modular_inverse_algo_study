@@ -114,6 +114,64 @@ pub fn mod_inverse_A(modulus: usize, unit: usize) -> InverseRes {
 }
 
 #[allow(non_snake_case)]
+pub fn mod_inverse_A2(modulus: usize, unit: usize) -> InverseRes {
+    #[cfg(test)]
+    #[cfg(feature = "extended-tests")]
+    if let Err(e) = val_rels(modulus, unit) {
+        return Err(e);
+    }
+
+    let mut a = unit as isize;
+    let mut b = modulus as isize;
+
+    let mut g = 1;
+    let mut h = 0;
+
+    let mut swap;
+
+    while a != 0 {
+        if a & 1 == 0 {
+            let mut ctz = a.trailing_zeros();
+            a >>= ctz;
+
+            while ctz > 0 {
+                ctz -= 1;
+
+                if g & 1 == 1 {
+                    g += modulus as isize;
+                }
+
+                g >>= 1;
+            }
+        } else {
+            if a < b {
+                swap = a;
+                a = b;
+                b = swap;
+
+                swap = g;
+                g = h;
+                h = swap;
+            }
+
+            a -= b;
+            a >>= 1;
+
+            g = g - h;
+            if g & 1 == 1 {
+                g += modulus as isize;
+            }
+
+            g >>= 1
+        }
+    }
+
+    assert_eq!(true, TryInto::<usize>::try_into(h).is_ok());
+    let res = if b == 1 { Some(h as usize) } else { None };
+    Ok(res)
+}
+
+#[allow(non_snake_case)]
 pub const fn mod_inverse_B(modulus: usize, unit: usize) -> InverseRes {
     #[cfg(test)]
     #[cfg(feature = "extended-tests")]
@@ -556,6 +614,7 @@ mod tests_of_units {
         type TestInf = (&'static str, InvCom);
 
         const A: TestInf = ("A", mod_inverse_A);
+        const A2: TestInf = ("A2", mod_inverse_A);
         const B: TestInf = ("B", mod_inverse_B);
         const C: TestInf = ("C", mod_inverse_C);
         const C2: TestInf = ("C2", mod_inverse_C2);
@@ -599,7 +658,7 @@ mod tests_of_units {
         fn basic_test() {
             let modulus = 17;
             let unit = 11;
-            let f = [A, B, C, C2, D, D2];
+            let f = [A, A2, B, C, C2, D, D2];
 
             test(unit, modulus, &f);
         }
@@ -617,7 +676,7 @@ mod tests_of_units {
         fn non_invertible_a() {
             let modulus = 33;
             let unit = 11;
-            let f = [A, B, C, C2, D, D2];
+            let f = [A, A2, B, C, C2, D, D2];
 
             for f in f {
                 println!("function|{}", f.0);
@@ -631,7 +690,7 @@ mod tests_of_units {
             let modulus = 3_150_055_839; // 150002659ᵖ ⋅7ᵖ ⋅3ᵖ
             let unit = 76_604_397; // 1502047ᵖ ⋅17ᵖ ⋅3ᵖ
 
-            let f = [A, C, C2, D, D2];
+            let f = [A, A2, C, C2, D, D2];
 
             for f in f {
                 println!("function|{}", f.0);
@@ -645,7 +704,7 @@ mod tests_of_units {
             let modulus = 55_286_231; // 5021ᵖ ⋅77ᶜ ⋅11ᵖ ⋅13ᵖ
             let unit = 7_704_620; // 5003ᵖ ⋅10ᶜ ⋅154ᶜ
 
-            let f = [A, C, C2, D, D2];
+            let f = [A, A2, C, C2, D, D2];
 
             for f in f {
                 println!("function|{}", f.0);
@@ -659,7 +718,7 @@ mod tests_of_units {
         fn val_rels() {
             let modulus = 59;
             let unit = 60;
-            let f = [A, B, C, C2, D, D2];
+            let f = [A, A2, B, C, C2, D, D2];
             for f in f {
                 println!("function|{}", f.0);
                 let res = f.1(modulus, unit);
@@ -671,7 +730,7 @@ mod tests_of_units {
         fn coprime_primes() {
             let modulus = 1_299_709;
             let unit = 56_999;
-            let f = [A, B, C, C2, D, D2];
+            let f = [A, A2, B, C, C2, D, D2];
 
             test(unit, modulus, &f);
         }
@@ -680,7 +739,7 @@ mod tests_of_units {
         fn coprime_odd() {
             let modulus = 2_559_031_471; // 150531263ᵖ ⋅17ᵖ
             let unit = 1_956_912_061; // 150531697ᵖ ⋅13ᵖ
-            let f = [A, C, C2, D, D2];
+            let f = [A, A2, C, C2, D, D2];
 
             test(unit, modulus, &f);
         }
@@ -689,7 +748,7 @@ mod tests_of_units {
         fn coprime_mixed_a() {
             let modulus = 52_535_230_703; // 150530747ᵖ ⋅349ᵖ
             let unit = 46_664_522_890; // 150530719ᵖ ⋅310ᶜ
-            let f = [A, C, C2, D, D2];
+            let f = [A, A2, C, C2, D, D2];
 
             test(unit, modulus, &f);
         }
@@ -698,7 +757,7 @@ mod tests_of_units {
         fn coprime_mixed_b() {
             let modulus = 19_209_934_347; // 56666473ᵖ ⋅113ᵖ ⋅3ᵖ
             let unit = 10_993_312_058; // 56666557ᵖ ⋅2ᵖ ⋅97ᵖ
-            let f = [A, C, C2, D, D2];
+            let f = [A, A2, C, C2, D, D2];
 
             test(unit, modulus, &f);
         }

@@ -35,3 +35,48 @@ return 0
 
 Notes
 - Loop invariants: `a =g ⋅u mod m` and `b =h ⋅u mod m`.
+
+## Simple Performance Comparison
+
+Statistically inaccurate, bound to one computation scenario simple performance overview, based on one run of performance comparison of various algorithm implementations outlined in table below. However, 
+results are stable accross runs.
+
+```rust
+#[bench]
+fn method(b: &mut Bencher) {
+    let modulus = 2_559_031_471;
+    let unit = 1_956_912_061;
+
+    b.iter(|| _ = method(modulus, unit));
+}
+```
+
+
+|     Method     | Description                                           |   Mean   | Deviation |
+|----------------|-------------------------------------------------------|----------|-----------|
+| mod_inverse_A  | Basic, avoids modular corrections                     | 54.89 ns | (± 4.67)  |
+| mod_inverse_A2 | CTZ, avoids modular corrections                       | 51.75 ns | (± 1.17)  |
+| mod_inverse_C  | CTZ, modular corrections                              | 61.89 ns | (± 0.90)  |
+| mod_inverse_C2 | CTZ, modular corrections, early escape                | 53.04 ns | (± 0.86)  |
+| mod_inverse_D  | CTZ, modular corrections, no swap                     | 60.46 ns | (± 0.79)  |
+| mod_inverse_D2 | CTZ, modular corrections, no swap, early escape       | 52.75 ns | (± 0.80)  |
+
+
+<small>
+Configuration:
+<ul>
+<li>Operating System: openSUSE Leap 16.0</li>
+<li>Kernel Version: 6.12.0-160000.33-default (64-bit)</li>
+<li>Processors: 16 × AMD Ryzen 7 3800X 8-Core Processor</li>
+</ul>
+</small>
+
+See [Stein's greatest common divisor algorithm study](https://github.com/deep-outcome/stein_gcd_algo_study#simple-performance-comparison) to compare with other Stein's Extended Greatest Common Divisor algorithm performance.
+
+
+## References
+
+For further scholastic reference on topic of Greates Common Divisor and Modular Inverse computations, especially with focus on optimization, see:
+- [Optimized Binary GCD for Modular Inversion](./optimized-binary-gcd-for-modular-inversion.pdf) by Thomas Pornin
+- [Fast constant-time
+gcd computation and modular inversion](./fast-constant-time-gcd-computation-and-modular-inversion.pdf) by Daniel J. Bernstein and Bo-Yin Yang
