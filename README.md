@@ -54,12 +54,12 @@ fn method(b: &mut Bencher) {
 
 |     Method     | Description                                           |   Mean   | Deviation |
 |----------------|-------------------------------------------------------|----------|-----------|
-| mod_inverse_A  | Basic, avoids modular corrections                     | 54.89 ns | (± 4.67)  |
-| mod_inverse_A2 | CTZ, avoids modular corrections                       | 51.75 ns | (± 1.17)  |
-| mod_inverse_C  | CTZ, modular corrections                              | 61.89 ns | (± 0.90)  |
-| mod_inverse_C2 | CTZ, modular corrections, early escape                | 53.04 ns | (± 0.86)  |
-| mod_inverse_D  | CTZ, modular corrections, no swap                     | 60.46 ns | (± 0.79)  |
-| mod_inverse_D2 | CTZ, modular corrections, no swap, early escape       | 52.75 ns | (± 0.80)  |
+| mod_inverse_A  | Basic, avoids modular corrections                     | 54.89 ns | ± 4.67    |
+| mod_inverse_A2 | CTZ, avoids modular corrections                       | 51.75 ns | ± 1.17    |
+| mod_inverse_C  | CTZ, modular corrections                              | 61.89 ns | ± 0.90    |
+| mod_inverse_C2 | CTZ, modular corrections, early escape                | 53.04 ns | ± 0.86    |
+| mod_inverse_D  | CTZ, modular corrections, no swap                     | 60.46 ns | ± 0.79    |
+| mod_inverse_D2 | CTZ, modular corrections, no swap, early escape       | 52.75 ns | ± 0.80    |
 
 
 <small>
