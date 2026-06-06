@@ -71,7 +71,7 @@ Configuration:
 </ul>
 </small>
 
-See [Stein's greatest common divisor algorithm study](https://github.com/deep-outcome/stein_gcd_algo_study#simple-performance-comparison) to compare with other Stein's Extended Greatest Common Divisor algorithm performance.
+See [Stein's Greatest Common Divisor Algorithm Study](https://github.com/deep-outcome/stein_gcd_algo_study#simple-performance-comparison) to compare with other Stein's Extended Greatest Common Divisor algorithm performance.
 
 
 ## References
