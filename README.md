@@ -74,7 +74,7 @@ Configuration:
 
 See [Stein's Greatest Common Divisor Algorithm Study](https://github.com/deep-outcome/stein_gcd_algo_study#simple-performance-comparison) to compare with other Stein's Extended Greatest Common Divisor algorithm performance.
 
-More or less interesting times are gotten when `fat` [Link Time Optimizations](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) is used.
+More or less interesting times are also gotten when `fat` option for [Link Time Optimizations](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) is used.
 
 
 |     Method     |     Mean      | Deviation |
