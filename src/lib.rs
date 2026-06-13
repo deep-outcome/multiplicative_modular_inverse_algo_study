@@ -9,6 +9,8 @@
 //!
 //! Note: Bézout's coefficients and Bézout's identity are not limited to `gcd(left,right) =1`,
 //! yet both apply to all gcds.
+
+#[cfg(debug_assertions)]
 use core::convert::TryInto;
 type InverseRes = Result<Option<usize>, &'static str>;
 
@@ -108,6 +110,7 @@ pub fn mod_inverse_A(modulus: usize, unit: usize) -> InverseRes {
         }
     }
 
+    #[cfg(debug_assertions)]
     assert_eq!(true, TryInto::<usize>::try_into(h).is_ok());
     let res = if b == 1 { Some(h as usize) } else { None };
     Ok(res)
@@ -166,6 +169,7 @@ pub fn mod_inverse_A2(modulus: usize, unit: usize) -> InverseRes {
         }
     }
 
+    #[cfg(debug_assertions)]
     assert_eq!(true, TryInto::<usize>::try_into(h).is_ok());
     let res = if b == 1 { Some(h as usize) } else { None };
     Ok(res)
@@ -787,3 +791,4 @@ mod tests_of_units {
 }
 
 // cargo fmt & cargo test --features extended-tests
+// cargo fmt && cargo bench --test bench --profile bench

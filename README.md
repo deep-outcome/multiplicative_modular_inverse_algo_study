@@ -54,12 +54,12 @@ fn method(b: &mut Bencher) {
 
 |     Method     | Description                                           |   Mean   | Deviation |
 |----------------|-------------------------------------------------------|----------|-----------|
-| mod_inverse_A  | Basic, avoids modular corrections                     | 54.89 ns | ± 4.67    |
-| mod_inverse_A2 | CTZ, avoids modular corrections                       | 51.75 ns | ± 1.17    |
-| mod_inverse_C  | CTZ, modular corrections                              | 61.89 ns | ± 0.90    |
-| mod_inverse_C2 | CTZ, modular corrections, early escape                | 53.04 ns | ± 0.86    |
-| mod_inverse_D  | CTZ, modular corrections, no swap                     | 60.46 ns | ± 0.79    |
-| mod_inverse_D2 | CTZ, modular corrections, no swap, early escape       | 52.75 ns | ± 0.80    |
+| mod_inverse_A  | Basic, avoids modular corrections                     | 61.25 ns | ± 0.45    |
+| mod_inverse_A2 | CTZ, avoids modular corrections                       | 30.84 ns | ± 0.25    |
+| mod_inverse_C  | CTZ, modular corrections                              | 35.78 ns | ± 0.45    |
+| mod_inverse_C2 | CTZ, modular corrections, early escape                | 39.52 ns | ± 1.10    |
+| mod_inverse_D  | CTZ, modular corrections, no swap                     | 60.48 ns | ± 2.16    |
+| mod_inverse_D2 | CTZ, modular corrections, no swap, early escape       | 52.91 ns | ± 0.66    |
 
 
 <small>
@@ -67,11 +67,24 @@ Configuration:
 <ul>
 <li>Operating System: openSUSE Leap 16.0</li>
 <li>Kernel Version: 6.12.0-160000.33-default (64-bit)</li>
-<li>Processors: 16 × AMD Ryzen 7 3800X 8-Core Processor</li>
+<li>Processor: 16 × AMD Ryzen 7 3800X 8-Core Processor</li>
+<li>RAM: DDR4 2133 MT/s</li>
 </ul>
 </small>
 
 See [Stein's Greatest Common Divisor Algorithm Study](https://github.com/deep-outcome/stein_gcd_algo_study#simple-performance-comparison) to compare with other Stein's Extended Greatest Common Divisor algorithm performance.
+
+More or less interesting times are gotten when `fat` [Link Time Optimizations](https://doc.rust-lang.org/cargo/reference/profiles.html#lto) is used.
+
+
+|     Method     |     Mean      | Deviation |
+|----------------|---------------|-----------|
+| mod_inverse_A  | 62.33 ns/iter | ± 1.38    |
+| mod_inverse_A2 | 30.83 ns/iter | ± 1.01    |
+| mod_inverse_C  | 35.75 ns/iter | ± 0.41    |
+| mod_inverse_C2 | 39.54 ns/iter | ± 0.29    |
+| mod_inverse_D  | 29.96 ns/iter | ± 5.06    |
+| mod_inverse_D2 | 24.85 ns/iter | ± 7.32    |
 
 
 ## References
