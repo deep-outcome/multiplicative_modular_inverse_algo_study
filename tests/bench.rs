@@ -59,5 +59,5 @@ fn bench_mod_inverse_D2(b: &mut Bencher) {
 // rustup default nightly-x86_64-unknown-linux-gnu
 // rustup default stable-x86_64-unknown-linux-gnu
 //
-// cargo fmt && cargo bench --test bench
+// cargo fmt && cargo bench --test bench --profile bench
 // cargo fmt && cargo test
