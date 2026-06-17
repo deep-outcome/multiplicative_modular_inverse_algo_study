@@ -38,7 +38,7 @@ Notes
 
 ## Simple Performance Comparison
 
-Statistically inaccurate, bound to one computation scenario simple performance overview, based on one run of performance comparison of various algorithm implementations outlined in table below. However, 
+Statistically inaccurate, bound to one computation scenario, simple performance overview, based on one run of performance comparison of various algorithm implementations outlined in table below. However, 
 results are stable accross runs.
 
 ```rust
